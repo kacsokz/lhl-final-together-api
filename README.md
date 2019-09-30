@@ -16,7 +16,7 @@ Response
     "last_name": "Calhoon",
     "email": "randy.calhoon@gmail.com",
     "avatar": "https://i.imgur.com/LpaY82x.png",
-    "tag-line": "Always ready to rock and/or roll!"
+    "tag_line": "Always ready to rock and/or roll!"
   }
 ]
 ```
@@ -28,7 +28,7 @@ Body:
 ```json
 [
   {
-    "tag-line": String
+    "tag_line": String
   }
 ]
 ```

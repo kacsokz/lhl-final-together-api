@@ -2,9 +2,11 @@
   "name": "final-project-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon -L server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +27,8 @@
     "pg": "^7.8.1",
     "socket.io": "^2.2.0",
     "ws": "^7.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
   }
 }
