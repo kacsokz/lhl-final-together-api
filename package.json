@@ -1,0 +1,29 @@
+{
+  "name": "final-project-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kacsokz/lhl-final-together-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kacsokz/lhl-final-together-api/issues"
+  },
+  "homepage": "https://github.com/kacsokz/lhl-final-together-api#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "helmet": "^3.18.0",
+    "pg": "^7.8.1",
+    "socket.io": "^2.2.0",
+    "ws": "^7.0.0"
+  }
+}
