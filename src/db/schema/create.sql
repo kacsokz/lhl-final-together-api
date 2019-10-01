@@ -18,8 +18,8 @@ CREATE TABLE bars (
   latitude INTEGER NOT NULL,
   longitude INTEGER NOT NULL,
   address VARCHAR(255) NOT NULL,
-  start_time TIMESTAMP NOT NULL,
-  end_time TIMESTAMP NOT NULL
+  start_time VARCHAR(255) NOT NULL,
+  end_time VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE events (
@@ -27,9 +27,9 @@ CREATE TABLE events (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   bar_id INTEGER REFERENCES bars(id) ON DELETE CASCADE,
   name VARCHAR(255) NOT NULL,
-  date DATE NOT NULL,
-  start_time TIMESTAMP NOT NULL,
-  end_time TIMESTAMP NOT NULL,
+  date VARCHAR(255) NOT NULL,
+  start_time VARCHAR(255) NOT NULL,
+  end_time VARCHAR(255) NOT NULL,
   tag_line VARCHAR(255)
 );
 

@@ -46,8 +46,8 @@ Response
   {
     "id": 1,
     "name": "The Last Best Brewing Company",
-    "latitude": 51.042783,
-    "longitude": -114.074595,
+    "latitude": -114.074559,
+    "longitude": 51.042613,
     "address": "607 11 Ave SW, Calgary, AB T2R 0E1",
     "start_time": "15:30",
     "end_time": "16:30"
