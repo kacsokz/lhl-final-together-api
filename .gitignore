@@ -3,3 +3,4 @@ node_modules/
 heroku-cra-node/
 
 .env.development
+.env
