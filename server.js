@@ -1,25 +1,10 @@
 require('dotenv').config();
 
-const PORT = process.env.PORT || 3002;
-const express = require('express');
+const PORT = process.env.PORT || 3000;
+const ENV = process.env.NODE_ENV
 
-const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello Team')
-})
-
-app.get('/api/users', (req, res) => {
-  res.send([
-    {
-      "id": 1,
-      "first_name": "Randy",
-      "last_name": "Calhoon",
-      "email": "randy.calhoon@gmail.com",
-      "avatar": "https://i.imgur.com/LpaY82x.png",
-      "tag_line": "Always ready to rock and/or roll!"
-    }
-  ])
-})
+const app = require("./src/application")(ENV);
+// const server = require("http").Server(app);
 
 app.listen(PORT, () => console.log("Im listening on " + PORT))
