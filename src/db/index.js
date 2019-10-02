@@ -1,11 +1,12 @@
 const pg = require('pg');
 const config = require("../config")
-const client = new Client();
 
-await client.connect(config.dbUrl);
+const client = new Client({
+  connectionString: process.env.DATABASE_URL || ""
+});
 
-const res = await client.query('SELECT $1::text as message', ['Hello world!']);
+client
+  .connect()
+  .catch(e => console.log(`Error connecting to Postgres server:\n${e}`));
 
-console.log(res.rows[0].message);
-
-await client.end();
+module.exports = client;
