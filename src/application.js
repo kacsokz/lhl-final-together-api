@@ -38,10 +38,10 @@ module.exports = function application(
   app.use(helmet());
   app.use(bodyparser.json());
 
-  app.use("/api", users(db, actions.updateUsers));
-  app.use("/api", events(query, actions.updateEvents));
-  app.use("/api", bars(db, actions.updateBars));
-  app.use("/api", map(db));
+  app.use("/api", users(query));
+  app.use("/api", events(query));
+  app.use("/api", bars(query));
+  app.use("/api", map(query));
 
   
 
@@ -50,7 +50,7 @@ module.exports = function application(
   if (ENV === "development" || ENV === "test") {
     Promise.all([
       read(path.resolve(__dirname, `db/schema/create.sql`)),
-      read(path.resolve(__dirname, `db/schema/${ENV}.sql`))
+      read(path.resolve(__dirname, `db/seeds/seeds.sql`))
     ])
       .then(([create, seed]) => {
         app.get("/api/debug/reset", (request, response) => {
