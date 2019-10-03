@@ -23,14 +23,18 @@ VALUES ('The Last Best Brewing Company', -114.074559, 51.042613, '607 11 Ave SW,
 
 INSERT INTO events (user_id, bar_id, name, date, start_time, end_time, tag_line)
 VALUES (1, 1, 'Graduation & Celebration Drinks', 'Oct. 10, 2019', '20:00', '23:00', 'Join me in celebrating the accomplishments of my favourite LHL cohort, Calgary 22JUL2019.'),
-(2, 2, 'Costume Showdown', 'Oct. 31, 2019', '16:00', '17:00', 'Best costume gets a shot and 5 nima bucks.'),
-(3, 3, 'Pixels & Pints 10th Anniversary', 'Nov. 7, 2019', '17:00', '21:00', 'For 10 years, Calgarys best and brightest in tech and digital design have been meeting for drinks. Sometimes theres cake.'),
+(1, 2, 'Chic Geek', 'Oct. 12, 2019', '17:00', '22:00', 'Chic Geek tribe meetup!'),
+(3, 5, 'Im back in Calgary!', 'Oct.12, 2019', '18:30', '23:00', 'Lets get drunk!!'),
+(2, 2, 'Pixels & Pints 10th Anniversary', 'Nov. 7, 2019', '17:00', '21:00', 'For 10 years, Calgarys best and brightest in tech and digital design have been meeting for drinks. Sometimes theres cake.'),
+(3, 3, 'Costume Showdown', 'Oct. 31, 2019', '16:00', '17:00', 'Best costume gets a shot and 5 nima bucks.'),
 (4, 4, 'Holiday Party', 'Dec. 7, 2019', '15:00', '16:00', 'Mainly coffee, maybe a little irish cream...?'),
 (5, 5, 'KVs NY & PBs', 'Jan. 1, 2019', '16:00', '17:00', 'Classy Conversations and Polar Bear Shots.');
 
 INSERT INTO event_attendees (user_id, bar_id, event_id)
 VALUES (1, 1, 1), (2, 1, 1), (3, 1, 1), (4, 1, 1), (5, 1, 1), (6, 1, 1), (7, 1, 1), (8, 1, 1), (9, 1, 1), (10, 1, 1), (11, 1, 1), (12, 1, 1), (13, 1, 1), (14, 1, 1),
-(1, 2, 2), (2, 2, 2), (3, 2, 2), (4, 2, 2), (5, 2, 2), (6, 2, 2), (7, 2, 2), (8, 2, 2), (9, 2, 2), (10, 2, 2), (11, 2, 2), (12, 2, 2), (13, 2, 2), (14, 2, 2),
-(1, 3, 3), (2, 3, 3), (3, 3, 3), (4, 3, 3), (5, 3, 3), (6, 3, 3), (7, 3, 3), (8, 3, 3), (9, 3, 3), (10, 3, 3), (11, 3, 3), (12, 3, 3), (13, 3, 3), (14, 3, 3),
-(1, 4, 4), (2, 4, 4), (3, 4, 4), (4, 4, 4), (5, 4, 4), (6, 4, 4), (7, 4, 4), (8, 4, 4), (9, 4, 4), (10, 4, 4), (11, 4, 4), (12, 4, 4), (13, 4, 4), (14, 4, 4),
-(1, 5, 5), (2, 5, 5), (3, 5, 5), (4, 5, 5), (5, 5, 5), (6, 5, 5), (7, 5, 5), (8, 5, 5), (9, 5, 5), (10, 5, 5), (11, 5, 5), (12, 5, 5), (13, 5, 5), (14, 5, 5);
+(1, 2, 2), (6, 2, 2), (10, 2, 2),
+(2, 5, 3), (3, 5, 3), (4, 5, 3), (5, 5, 3), (7, 5, 3), (8, 5, 3), (9, 5, 3), (11, 5, 3), (12, 5, 3), (13, 5, 3), (14, 5, 3),
+(1, 2, 4), (2, 2, 4), (3, 2, 4), (4, 2, 4), (5, 2, 4), (6, 2, 4), (7, 2, 4), (8, 2, 4), (9, 2, 4), (10, 2, 4), (11, 2, 4), (12, 2, 4), (13, 2, 4), (14, 2, 4),
+(1, 3, 5), (2, 3, 5), (3, 3, 5), (4, 3, 5), (5, 3, 5), (6, 3, 5), (7, 3, 5), (8, 3, 5), (9, 3, 5), (10, 3, 5), (11, 3, 5), (12, 3, 5), (13, 3, 5), (14, 3, 5),
+(1, 4, 6), (2, 4, 6), (3, 4, 6), (4, 4, 6), (5, 4, 6), (6, 4, 6), (7, 4, 6), (8, 4, 6), (9, 4, 6), (10, 4, 6), (11, 4, 6), (12, 4, 6), (13, 4, 6), (14, 4, 6),
+(1, 5, 7), (2, 5, 7), (3, 5, 7), (4, 5, 7), (5, 5, 7), (6, 5, 7), (7, 5, 7), (8, 5, 7), (9, 5, 7), (10, 5, 7), (11, 5, 7), (12, 5, 7), (13, 5, 7), (14, 5, 7);
