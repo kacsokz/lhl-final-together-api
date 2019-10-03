@@ -1,23 +1,22 @@
 const router = require("express").Router();
 
-module.exports = (db, updateEvents) => {
+module.exports = (query, updateEvents) => {
   router.get("/events", (req, res) => {
-    db.query(
-      `SELECT * FROM events`
-    )
-      .then(({ rows: events }) => {
-        res.json(events)
-      });
+    const user_id = req.query && req.query.user_id;
+    if(user_id) {
+      query.getEventsByUserId(user_id)
+      .then(events => res.json(events))
+    } else {
+      query.getEvents()
+    .then(events => res.json(events))
+    }
   });
 
   router.get("/events/:id", (req, res) => {
     const id = req.params.id;
 
-    db.query(
-      `SELECT * FROM events WHERE id = $1;`,[id])
-      .then(({ rows: event }) => {
-        res.json(event)
-      });
+    query.getEventById(id)
+    .then(event => res.json(event))
   });
 
 

@@ -7,6 +7,8 @@ const cors = require("cors");
 const app = express();
 const db = require("./db");
 
+const query = require("./db/queries")(db)
+
 const users = require("./routes/users");
 const events = require("./routes/events");
 const bars = require("./routes/bars");
@@ -37,7 +39,7 @@ module.exports = function application(
   app.use(bodyparser.json());
 
   app.use("/api", users(db, actions.updateUsers));
-  app.use("/api", events(db, actions.updateEvents));
+  app.use("/api", events(query, actions.updateEvents));
   app.use("/api", bars(db, actions.updateBars));
   app.use("/api", map(db));
 
