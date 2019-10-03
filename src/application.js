@@ -10,6 +10,7 @@ const db = require("./db");
 const users = require("./routes/users");
 const events = require("./routes/events");
 const bars = require("./routes/bars");
+const map = require("./routes/map");
 
 function read(file) {
   return new Promise((resolve, reject) => {
@@ -38,6 +39,11 @@ module.exports = function application(
   app.use("/api", users(db, actions.updateUsers));
   app.use("/api", events(db, actions.updateEvents));
   app.use("/api", bars(db, actions.updateBars));
+  app.use("/api", map(db));
+
+  
+
+  
 
   if (ENV === "development" || ENV === "test") {
     Promise.all([
