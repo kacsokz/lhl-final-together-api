@@ -1,7 +1,8 @@
-require('dotenv').config();
+const ENV = process.env.NODE_ENV || 'development'
+const dotEnvFilePath = __dirname + '/.env.' + ENV
+require('dotenv').config({ path: dotEnvFilePath });
 
 const PORT = process.env.PORT || 3000;
-const ENV = process.env.NODE_ENV
 
 
 const app = require("./src/application")(ENV);
