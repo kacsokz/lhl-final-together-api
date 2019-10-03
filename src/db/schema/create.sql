@@ -15,8 +15,8 @@ CREATE TABLE users (
 CREATE TABLE bars (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
-  latitude INTEGER NOT NULL,
-  longitude INTEGER NOT NULL,
+  latitude DECIMAL(10,6) NOT NULL,
+  longitude DECIMAL(10,6) NOT NULL,
   address VARCHAR(255) NOT NULL,
   start_time VARCHAR(255) NOT NULL,
   end_time VARCHAR(255) NOT NULL
