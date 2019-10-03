@@ -1,9 +1,14 @@
 const pg = require("pg");
-require('dotenv').config();
 
+
+let dbParams = "";
+if (process.env.NODE_ENV === "production") {
+  dbParams = process.env.DATABASE_URL;
+}
 const client = new pg.Client({
-  connectionString: process.env.DATABASE_URL || "", ssl: true
+  connectionString: dbParams, ssl: true
 });
+
 
 client
   .connect()
