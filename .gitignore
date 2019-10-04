@@ -2,7 +2,6 @@
 node_modules/
 heroku-cra-node/
 
-.env.production
 .env.development
 .env.production
 .env
