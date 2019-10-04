@@ -11,6 +11,7 @@ module.exports = (query) => {
     const id = req.params.id;
     query.getBarById(id)
       .then(bar => res.json(bar))
+      .catch(error => console.log(error));
   });
 
 

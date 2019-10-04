@@ -10,6 +10,7 @@ module.exports = (query, updateUsers) => {
     const id = req.params.id;
     query.getUserById(id)
       .then(user => res.json(user))
+      .catch(error => console.log(error));
   });
 
   return router

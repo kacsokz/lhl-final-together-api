@@ -5,6 +5,7 @@ module.exports = (query) => {
   router.get("/map", (req, res) => {
     query.getMapData()
       .then(map => res.json(map))
+      .catch(error => console.log(error));
   });
 
   router.get("/mapApiKey", (req, res) => {

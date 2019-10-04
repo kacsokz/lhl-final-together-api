@@ -5,6 +5,7 @@ module.exports = db => ({
       `SELECT * FROM bars`
     )
       .then(({ rows: bars }) => bars)
+      .catch(error => console.log(error));
   },
 
   getBarById(id) {
@@ -12,34 +13,40 @@ module.exports = db => ({
       `SELECT * FROM events e JOIN bars b ON b.id = e.bar_id WHERE b.id = $1;`, [id])
 
       .then(({ rows: bar }) => bar)
+      .catch(error => console.log(error));
   },
 
   getUsers() {
     return db.query(
       `SELECT * FROM users`
     )
-      .then(({ rows: users }) => users);
+      .then(({ rows: users }) => users)
+      .catch(error => console.log(error));
+      
   },
 
   getUserById(id) {
     return db.query(
       `SELECT * FROM users WHERE id=$1`, [id]
     )
-      .then(({ rows: users }) => users);
+      .then(({ rows: users }) => users)
+      .catch(error => console.log(error));
   },
 
   getEvents() {
     return db.query(
       `SELECT * FROM events`
     )
-      .then(({ rows: events }) => events);
+      .then(({ rows: events }) => events)
+      .catch(error => console.log(error));
   },
 
   getEventsByUserId(user_id) {
     return db.query(
       `SELECT * FROM events JOIN users ON users.id = events.user_id Where user_id = $1;`, [user_id]
     )
-      .then(({ rows: events }) => events);
+      .then(({ rows: events }) => events)
+      .catch(error => console.log(error));
   },
 
   getEventById(id) {
@@ -59,14 +66,16 @@ module.exports = db => ({
          AND events.id = $1
       GROUP BY event_attendees.event_id, event_attendees.bar_id, events.name, events.date, events.start_time, events.end_time, events.tag_line, events.id
       `, [id])
-      .then(({ rows }) => rows[0]);
+      .then(({ rows }) => rows[0])
+      .catch(error => console.log(error));
   },
 
   getMapData() {
     return db.query(
       `SELECT id, longitude, latitude FROM bars`
     )
-      .then(({ rows: map }) => map);
+      .then(({ rows: map }) => map)
+      .catch(error => console.log(error));
   },
 
   getEventsList() {
@@ -86,6 +95,7 @@ module.exports = db => ({
       GROUP BY event_attendees.event_id, event_attendees.bar_id, events.name, events.date, events.start_time, events.end_time, events.tag_line, events.id
       `
     )
-      .then(({ rows: events }) => events);
+      .then(({ rows: events }) => events)
+      .catch(error => console.log(error));
   }
 })

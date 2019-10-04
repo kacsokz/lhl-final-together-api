@@ -9,6 +9,7 @@ module.exports = (query, updateEvents) => {
     } else {
       query.getEvents()
         .then(events => res.json(events))
+        .catch(error => console.log(error));
     }
   });
 
@@ -16,6 +17,7 @@ module.exports = (query, updateEvents) => {
 
     query.getEventsList()
       .then(event => res.json(event))
+      .catch(error => console.log(error));
   });
 
   router.get("/events/:id", (req, res) => {
@@ -23,6 +25,7 @@ module.exports = (query, updateEvents) => {
 
     query.getEventById(id)
       .then(event => res.json(event))
+      .catch(error => console.log(error));
   });
 
   
