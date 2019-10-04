@@ -7,21 +7,26 @@ const CLIENTID = process.env.CLIENTID
 const CLIENTSECRET = process.env.CLIENTSECRET
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const passport = require('passport');
-
-const express = require('express');
+const session = require('express-session');
+const socketio = require('socket.io');
+const http = require('http')
 
 const app = require("./src/application")(ENV);
+server = http.createServer(app)
 // const server = require("http").Server(app);
+app.use(passport.initialize());
 
 passport.use(new LinkedInStrategy({
   clientID: CLIENTID,
   clientSecret: CLIENTSECRET,
-  callbackURL: "https://together-lhl-api.herokuapp.com/auth/linkedin/callback", //wont work on localhost
-  scope: ['r_emailaddress', 'r_basicprofile'],
+  callbackURL: "http://6dbb7a59.ngrok.io/auth/linkedin/callback", //wont work on localhost
+  scope: ['r_emailaddress', 'r_liteprofile'],
   // state: true
 }, function(accessToken, refreshToken, profile, done) {
+  console.log(accessToken, "token");
   // asynchronous verification, for effect...
-  process.nextTick(function () {
+  process.nextTick(function (req, res) {
+    console.log(req, "requeeeeeeeeeeeeeeeest")
     // To keep the example simple, the user's LinkedIn profile is returned to
     // represent the logged-in user. In a typical application, you would want
     // to associate the LinkedIn account with a user record in your database,
@@ -30,17 +35,32 @@ passport.use(new LinkedInStrategy({
   });
 }));
 
-app.get('/auth/linkedin',
-  passport.authenticate('linkedin'),
-  function(req, res){
-    // The request will be redirected to LinkedIn for authentication, so this
-    // function will not be called.
-  });
+app.use(session({ 
+  secret: 'process.env.SESSION_SECRET', 
+  resave: true, 
+  saveUninitialized: true
+}))
+
+// Connecting sockets to the server and adding them to the request 
+// so that we can access them later in the controller
+const io = socketio(server)
+app.set('io', io)
+
+app.get('/auth/linkedin/callback', passport.authenticate('linkedin', (error, user, info) => {
+
+  console.log()
+  res.redirect("http://localhost:5000/");
+});
 
 
 app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
-  successRedirect: '/',
-  failureRedirect: '/login'
-}));
+  successRedirect: 'http://localhost:8000/',
+  failureRedirect: '/login',
+  session: false
+  }),
+  (req, res) => {
+    res.redirect("http://localhost:5000/");
+  }
+);
 
-app.listen(PORT, () => console.log("Im listening on " + PORT))
+server.listen(PORT, () => console.log("Im listening on " + PORT))
