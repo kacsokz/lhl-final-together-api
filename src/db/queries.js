@@ -22,7 +22,7 @@ module.exports = db => ({
     )
       .then(({ rows: users }) => users)
       .catch(error => console.log(error));
-      
+
   },
 
   getUserById(id) {
@@ -43,7 +43,14 @@ module.exports = db => ({
 
   getEventsByUserId(user_id) {
     return db.query(
-      `SELECT * FROM events JOIN users ON users.id = events.user_id Where user_id = $1;`, [user_id]
+      `SELECT events.id AS event_id, events.user_id AS user_id, events.name AS
+      event_name, events.date AS event_date, events.start_time AS event_start_time,
+      events.end_time AS event_end_time, events.tag_line AS event_tag_line,
+      users.first_name AS host_name, users.email AS email,
+      users.avatar AS avatar
+      FROM events
+      JOIN users ON users.id = events.user_id
+      WHERE user_id = $1;`, [user_id]
     )
       .then(({ rows: events }) => events)
       .catch(error => console.log(error));
@@ -97,5 +104,59 @@ module.exports = db => ({
     )
       .then(({ rows: events }) => events)
       .catch(error => console.log(error));
+  },
+
+  deleteUserTagLine(user_id) {
+    return db.query(
+      `UPDATE users  SET tag_line = '' WHERE id = $1;`, [user_id]
+    )
+      .then(({ rows: user }) => user)
+      .catch(error => console.log(error));
+  },
+
+  deleteUserEvent(event_id) {
+    return db.query(
+      `DELETE FROM events WHERE events.id = $1;`, [event_id]
+    )
+      .then(({ rows: event }) => event)
+      .catch(error => console.log(error));
+  },
+
+  addTagLine(tag_line, id) {
+    return db.query(`UPDATE "users" 
+    SET tag_line = $1 
+    WHERE id = $2 RETURNING *;`, [tag_line, id]
+    )
+      .then(({ rows: event }) => event)
+      .catch(error => console.log(error));
+  },
+
+  updateEmail(email, id) {
+    return db.query(`UPDATE "users" 
+    SET email = $1 
+    WHERE id = $2 RETURNING *;`, [email, id]
+    )
+      .then(({ rows: event }) => event)
+      .catch(error => console.log(error));
+  },
+
+  createUserEvent(templateVars) {
+    return db.query(`
+    INSERT INTO "events"
+    (user_id, bar_id, name, date, start_time, end_time, tag_line)
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    RETURNING *;
+      `, [
+      templateVars.user_id,
+      templateVars.bar_id,
+      templateVars.event_name,
+      templateVars.event_date,
+      templateVars.event_start_time,
+      templateVars.event_end_time,
+      templateVars.event_tag_line]
+    )
+      .then(({ rows: event }) => event)
+      .catch(error => console.log(error));
   }
+
 })
