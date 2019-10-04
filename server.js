@@ -28,7 +28,9 @@ app.set('io', io)
 
 app.get('/auth/linkedin/callback', passport.authenticate('linkedin'),
   (req, res) => {
-    console.log(req.user, "USERRRRRRRR")
+    console.log(req.user.photos[0], "THIS IS THE PHOTO!!!!")
+    // console.log(req.user._json.emails, "This is the EMAILLLLLLLLL")
+    // console.log(req.user, "USERRRRRRRR")
     res.redirect('http://localhost:8000?username' + req.user.name.givenName);
   }
 );
