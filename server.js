@@ -17,7 +17,7 @@ passport.use(new LinkedInStrategy({
   clientID: CLIENTID,
   clientSecret: CLIENTSECRET,
   callbackURL: "https://together-lhl-api.herokuapp.com/auth/linkedin/callback", //wont work on localhost
-  scope: ['r_emailaddress', 'r_basicprofile'],
+  scope: ['r_emailaddress', 'r_liteprofile'],
   // state: true
 }, function(accessToken, refreshToken, profile, done) {
   // asynchronous verification, for effect...
