@@ -3,14 +3,13 @@ const dotEnvFilePath = __dirname + '/.env.' + ENV
 require('dotenv').config({ path: dotEnvFilePath });
 
 const PORT = process.env.PORT || 3000;
-const CLIENTID = process.env.CLIENTID
-const CLIENTSECRET = process.env.CLIENTSECRET
-const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const passport = require('passport');
-
-const express = require('express');
-
+const session = require('express-session');
+const socketio = require('socket.io');
+const http = require('http');
+const usePassport = require('./src/usePassport');
 const app = require("./src/application")(ENV);
+server = http.createServer(app)
 // const server = require("http").Server(app);
 
 passport.use(new LinkedInStrategy({
@@ -30,17 +29,16 @@ passport.use(new LinkedInStrategy({
   });
 }));
 
-app.get('/auth/linkedin',
-  passport.authenticate('linkedin'),
-  function(req, res){
-    // The request will be redirected to LinkedIn for authentication, so this
-    // function will not be called.
-  });
 
+app.get('/auth/linkedin/callback', passport.authenticate('linkedin'),
+  (req, res) => {
+    console.log(req.user.photos[0], "THIS IS THE PHOTO!!!!")
+    // console.log(req.user._json.emails, "This is the EMAILLLLLLLLL")
+    // console.log(req.user, "USERRRRRRRR")
+    res.redirect('http://localhost:8000?username' + req.user.name.givenName);
+  }
+);
 
-app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
-  successRedirect: '/',
-  failureRedirect: '/login'
-}));
+app.get('/auth/linkedin', passport.authenticate('linkedin'));
 
-app.listen(PORT, () => console.log("Im listening on " + PORT))
+server.listen(PORT, () => console.log("Im listening on " + PORT))

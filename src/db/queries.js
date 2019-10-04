@@ -157,6 +157,33 @@ module.exports = db => ({
     )
       .then(({ rows: event }) => event)
       .catch(error => console.log(error));
+  },
+
+  getUserByEmail(email) {
+    return db.query(`
+    SELECT users.email
+    FROM users
+    WHERE users.email = $1
+    `, [email]
+    )
+    .then(({ rows: email }) => email)
+    .catch(error => console.log(error));
+  },
+
+  createUser(templateVars) {
+    return db.query(`
+    INSERT INTO "users"
+    (first_name, last_name, email, avatar)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *;
+    `, [
+      templateVars.first_name,
+      templateVars.last_name,
+      templateVars.email,
+      templateVars.avatar]
+    )
+    .then(({ rows: user }) => user)
+    .catch(error => console.log(error));
   }
 
 })
