@@ -19,17 +19,13 @@ module.exports = (query, updateEvents) => {
       .then(event => res.json(event))
       .catch(error => console.log(error));
   });
-
+  
   router.get("/events/:id", (req, res) => {
-    const id = req.params.id;
+    const event_id = req.params.id;
 
-    query.getEventById(id)
+    query.getEventById(event_id)
       .then(event => res.json(event))
       .catch(error => console.log(error));
   });
-
-  
-
-
   return router
 }
