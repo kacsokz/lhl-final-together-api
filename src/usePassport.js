@@ -10,7 +10,7 @@ passport.deserializeUser((obj, cb) => cb(null, obj))
 passport.use(new LinkedInStrategy({
   clientID: CLIENTID,
   clientSecret: CLIENTSECRET,
-  callbackURL: "http://8220cde4.ngrok.io/auth/linkedin/callback", //wont work on localhost
+  callbackURL: "https://together-lhl-api.herokuapp.com/auth/linkedin/callback", //wont work on localhost
   scope: ['r_emailaddress', 'r_liteprofile'],
   // state: true
 }, function(accessToken, refreshToken, profile, done) {

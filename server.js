@@ -19,7 +19,7 @@ const forntEndURL = (arg) => {
     url = 'http://localhost:8000'
   }
   else {
-    url = ''
+    url = 'https://together-lhl-gui.netlify.com'
   }
   return url
 }
