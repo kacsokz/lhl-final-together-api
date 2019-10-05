@@ -114,13 +114,13 @@ module.exports = db => ({
       .catch(error => console.log(error));
   },
 
-  deleteUserTagLine(user_id) {
-    return db.query(
-      `UPDATE users  SET tag_line = '' WHERE id = $1;`, [user_id]
-    )
-      .then(({ rows: user }) => user)
-      .catch(error => console.log(error));
-  },
+  // deleteUserTagLine(user_id) {
+  //   return db.query(
+  //     `UPDATE users  SET tag_line = '' WHERE id = $1;`, [user_id]
+  //   )
+  //     .then(({ rows: user }) => user)
+  //     .catch(error => console.log(error));
+  // },
 
   deleteUserEvent(event_id) {
     return db.query(
@@ -130,23 +130,40 @@ module.exports = db => ({
       .catch(error => console.log(error));
   },
 
-  addTagLine(tag_line, id) {
-    return db.query(`UPDATE "users" 
-    SET tag_line = $1 
-    WHERE id = $2 RETURNING *;`, [tag_line, id]
-    )
+  updateProfile(templateVars) {
+    return db.query(`
+      UPDATE "users"
+      SET email = $1
+      SET tag_line = $2
+      WHERE id = $3
+      RETURNING *;`, [
+        templateVars.user_email,
+        templateVars.user_tag_line,
+        templateVars.user_id
+    ])
       .then(({ rows: event }) => event)
       .catch(error => console.log(error));
   },
 
-  updateEmail(email, id) {
-    return db.query(`UPDATE "users" 
-    SET email = $1 
-    WHERE id = $2 RETURNING *;`, [email, id]
-    )
-      .then(({ rows: event }) => event)
-      .catch(error => console.log(error));
-  },
+  // addTagLine(tag_line, id) {
+  //   return db.query(`UPDATE "users" 
+  //   SET tag_line = $1 
+  //   WHERE id = $2 RETURNING *;`, [tag_line, id]
+  //   )
+  //     .then(({ rows: event }) => event)
+  //     .catch(error => console.log(error));
+  // },
+
+  // updateEmail(email, id) {
+  //   return db.query(`
+  //     UPDATE "users" 
+  //     SET email = $1 
+  //     WHERE id = $2
+  //     RETURNING *;`, [email, id]
+  //   )
+  //     .then(({ rows: event }) => event)
+  //     .catch(error => console.log(error));
+  // },
 
   createUserEvent(templateVars) {
     return db.query(`

@@ -4,21 +4,33 @@ module.exports = (query, updateUsers) => {
   router.get("/users", (req, res) => {
     query.getUsers()
       .then(users => res.json(users))
+      .catch(error => console.log(error));
   });
 
-  router.post("/users/:id/tagline", (req, res) => {
-    const user_id = req.params.id;
-    query.addTagLine(req.body.tag_line, user_id)
+  router.post("/users/:id", (req, res) => {
+    const templateVars = {
+      user_id: req.params.id,
+      user_email: req.body.user_email,
+      event_tag_line: req.body.event_tag_line
+    };
+    query.updateProfile(templateVars)
       .then(user => res.json(user))
       .catch(error => console.log(error));
   });
 
-  router.post("/users/:id/email", (req, res) => {
-    const user_id = req.params.id;
-    query.updateEmail(req.body.email, user_id)
-      .then(user => res.json(user))
-      .catch(error => console.log(error));
-  });
+  // router.post("/users/:id/tagline", (req, res) => {
+  //   const user_id = req.params.id;
+  //   query.addTagLine(req.body.tag_line, user_id)
+  //     .then(user => res.json(user))
+  //     .catch(error => console.log(error));
+  // });
+
+  // router.post("/users/:id/email", (req, res) => {
+  //   const user_id = req.params.id;
+  //   query.updateEmail(req.body.email, user_id)
+  //     .then(user => res.json(user))
+  //     .catch(error => console.log(error));
+  // });
 
   router.get("/users/:id", (req, res) => {
     const user_id = req.params.id;
@@ -27,12 +39,12 @@ module.exports = (query, updateUsers) => {
       .catch(error => console.log(error));
   });
 
-  router.post("/users/:id", (req, res) => {
-    const user_id = req.params.id;
-    query.deleteUserTagLine(user_id)
-      .then(user => res.json(user))
-      .catch(error => console.log(error));
-  });
+  // router.post("/users/:id", (req, res) => {
+  //   const user_id = req.params.id;
+  //   query.deleteUserTagLine(user_id)
+  //     .then(user => res.json(user))
+  //     .catch(error => console.log(error));
+  // });
 
   router.post("/users/event/:id", (req, res) => {
     const user_id = req.params.id;
@@ -52,7 +64,7 @@ module.exports = (query, updateUsers) => {
       event_end_time: req.body.event_end_time,
       event_tag_line: req.body.event_tag_line
     };
-    
+
     query.createUserEvent(templateVars)
       .then(event => res.json(event))
       .catch(error => console.log(error));
