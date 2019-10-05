@@ -40,11 +40,22 @@ app.set('io', io)
 
 app.get('/auth/linkedin/callback', passport.authenticate('linkedin'),
   (req, res) => {
+
+    const photo = (arg) => {
+      let value
+      if (arg.length > 0) {
+        value = req.user.photos[1].value
+      }
+      else {
+        value = 'http://morrisinsurancegroup.com/wp-content/uploads/2018/01/blank-avatar.png'
+      }
+      return value
+    }
     let templateVars = {
       first_name: req.user.name.givenName,
       last_name: req.user.name.familyName,
       email: req.user.emails[0].value,
-      avatar: req.user.photos[1].value || ""
+      avatar: photo(req.user.photos)
     }
     query.getUserByEmail(req.user.emails[0].value)
       .then(result => {
@@ -64,11 +75,7 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin'),
             })
             .catch(error => console.log(error));
         }
-
-
       })
-
-
       .catch(error => console.log(error));
   }
 );

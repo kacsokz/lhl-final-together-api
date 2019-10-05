@@ -175,7 +175,7 @@ module.exports = db => ({
     `, [user_email]
     )
     .then(({ rows: email }) => {
-      if (email.length < 0){
+      if (email.length !== 0){
         return email[0].email
       }
     else return 0})
