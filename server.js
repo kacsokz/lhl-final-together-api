@@ -9,33 +9,67 @@ const socketio = require('socket.io');
 const http = require('http');
 const usePassport = require('./src/usePassport');
 const app = require("./src/application")(ENV);
-server = http.createServer(app)
-// const server = require("http").Server(app);
+const db = require("./src/db");
+const query = require("./src/db/queries")(db)
 
-passport.use(new LinkedInStrategy({
-  clientID: CLIENTID,
-  clientSecret: CLIENTSECRET,
-  callbackURL: "https://together-lhl-api.herokuapp.com/auth/linkedin/callback", //wont work on localhost
-  scope: ['r_emailaddress', 'r_liteprofile'],
-  // state: true
-}, function(accessToken, refreshToken, profile, done) {
-  // asynchronous verification, for effect...
-  process.nextTick(function () {
-    // To keep the example simple, the user's LinkedIn profile is returned to
-    // represent the logged-in user. In a typical application, you would want
-    // to associate the LinkedIn account with a user record in your database,
-    // and return that user instead.
-    return done(null, profile);
-  });
-}));
+server = http.createServer(app)
+const forntEndURL = (arg) => {
+  let url
+  if (arg === "development") {
+    url = 'http://localhost:8000'
+  }
+  else {
+    url = ''
+  }
+  return url
+}
+
+app.use(passport.initialize());
+usePassport();
+app.use(session({
+  secret: 'process.env.SESSION_SECRET',
+  resave: true,
+  saveUninitialized: true
+}))
+
+// Connecting sockets to the server and adding them to the request 
+// so that we can access them later in the controller
+const io = socketio(server)
+app.set('io', io)
 
 
 app.get('/auth/linkedin/callback', passport.authenticate('linkedin'),
   (req, res) => {
-    console.log(req.user.photos[0], "THIS IS THE PHOTO!!!!")
-    // console.log(req.user._json.emails, "This is the EMAILLLLLLLLL")
-    // console.log(req.user, "USERRRRRRRR")
-    res.redirect('http://localhost:8000?username' + req.user.name.givenName);
+    let templateVars = {
+      first_name: req.user.name.givenName,
+      last_name: req.user.name.familyName,
+      email: req.user.emails[0].value,
+      avatar: req.user.photos[1].value || ""
+    }
+    query.getUserByEmail(req.user.emails[0].value)
+      .then(result => {
+        if (result !== req.user.emails[0].value) {
+          query.createUser(templateVars)
+            .then(query.getUserIdByEmail(req.user.emails[0].value)
+              .then(user_id => {
+                res.redirect(forntEndURL(ENV) + '?user_id=' + user_id[0].id)
+              })
+              .catch(error => console.log(error))
+            );
+        }
+        else {
+          query.getUserIdByEmail(req.user.emails[0].value)
+            .then(user_id => {
+              res.redirect(forntEndURL(ENV) + '?user_id=' + user_id[0].id)
+            })
+            .catch(error => console.log(error));
+        }
+
+
+      })
+
+
+      .catch(error => console.log(error));
   }
 );
 
