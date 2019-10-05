@@ -33,6 +33,14 @@ module.exports = db => ({
       .catch(error => console.log(error));
   },
 
+  getUserIdByEmail(email) {
+    return db.query(
+      `SELECT users.id FROM users WHERE email=$1`, [email]
+    )
+      .then(({ rows: id }) => id)
+      .catch(error => console.log(error));
+  },
+
   getEvents() {
     return db.query(
       `SELECT * FROM events`
@@ -159,14 +167,18 @@ module.exports = db => ({
       .catch(error => console.log(error));
   },
 
-  getUserByEmail(email) {
+  getUserByEmail(user_email) {
     return db.query(`
     SELECT users.email
     FROM users
     WHERE users.email = $1
-    `, [email]
+    `, [user_email]
     )
-    .then(({ rows: email }) => email)
+    .then(({ rows: email }) => {
+      if (email.length < 0){
+        return email[0].email
+      }
+    else return 0})
     .catch(error => console.log(error));
   },
 
