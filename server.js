@@ -24,6 +24,8 @@ const forntEndURL = (arg) => {
   return url
 }
 
+const url = forntEndURL(ENV)
+
 app.use(passport.initialize());
 usePassport();
 app.use(session({
@@ -40,7 +42,6 @@ app.set('io', io)
 
 app.get('/auth/linkedin/callback', passport.authenticate('linkedin'),
   (req, res) => {
-
     const photo = (arg) => {
       let value
       if (arg.length > 0) {
@@ -63,7 +64,7 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin'),
           query.createUser(templateVars)
             .then(query.getUserIdByEmail(req.user.emails[0].value)
               .then(user_id => {
-                res.redirect(forntEndURL(ENV) + '?user_id=' + user_id[0].id)
+                res.redirect(url + '?user_id=' + user_id[0].id)
               })
               .catch(error => console.log(error))
             );
@@ -71,7 +72,8 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin'),
         else {
           query.getUserIdByEmail(req.user.emails[0].value)
             .then(user_id => {
-              res.redirect(forntEndURL(ENV) + '?user_id=' + user_id[0].id)
+              // console.log('login', url)
+              res.redirect(url + '?user_id=' + user_id[0].id)
             })
             .catch(error => console.log(error));
         }
