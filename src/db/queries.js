@@ -55,10 +55,13 @@ module.exports = db => ({
       event_name, events.date AS event_date, events.start_time AS event_start_time,
       events.end_time AS event_end_time, events.tag_line AS event_tag_line,
       users.first_name AS host_name, users.email AS email,
-      users.avatar AS avatar
+      users.avatar AS avatar,
+      count(event_attendees.id) AS attendees_count
       FROM events
       JOIN users ON users.id = events.user_id
-      WHERE user_id = $1;`, [user_id]
+      JOIN event_attendees ON events.user_id = event_attendees.user_id
+      WHERE events.user_id = $1
+      GROUP BY events.id, users.first_name, users.email, users.avatar;`, [user_id]
     )
       .then(({ rows: events }) => events)
       .catch(error => console.log(error));
@@ -69,8 +72,11 @@ module.exports = db => ({
       `SELECT 
       events.id AS event_id,
           (SELECT first_name || ' ' || last_name FROM users where users.id=events.user_id) AS host_name,
+          (SELECT id FROM users where users.id=events.user_id) AS host_id,
+          (SELECT avatar FROM users where users.id=events.user_id) AS host_avatar,
           (SELECT name FROM bars where id=event_attendees.bar_id) AS bar_name, 
           (SELECT latitude FROM bars where id=event_attendees.bar_id) AS latitude,
+          (SELECT id FROM bars where id=event_attendees.bar_id) AS bar_id,
           (SELECT longitude FROM bars where id=event_attendees.bar_id) AS longitude,
           events.name AS event_name,
           events.date AS event_date, events.start_time AS event_start_time,
@@ -78,6 +84,7 @@ module.exports = db => ({
           count(event_attendees.*) AS attendees_count
       FROM event_attendees, users, events
       WHERE users.id = event_attendees.user_id
+         AND events.id = event_attendees.event_id
          AND events.id = $1
       GROUP BY event_attendees.event_id, event_attendees.bar_id, events.name, events.date, events.start_time, events.end_time, events.tag_line, events.id
       `, [id])
@@ -108,6 +115,7 @@ module.exports = db => ({
       WHERE users.id = event_attendees.user_id
          AND events.id = event_attendees.event_id
       GROUP BY event_attendees.event_id, event_attendees.bar_id, events.name, events.date, events.start_time, events.end_time, events.tag_line, events.id
+      LIMIT 5;
       `
     )
       .then(({ rows: events }) => events)
@@ -148,6 +156,28 @@ module.exports = db => ({
       .catch(error => console.log(error));
   },
 
+  updateUserInfo(id, email, tagLine) {
+    return db.query(`UPDATE "users" 
+    SET email = $2, tag_line = $3
+    WHERE users.id = $1 RETURNING *;`, [id, email, tagLine]
+    )
+      .then(({ rows: user }) => user)
+      .catch(error => console.log(error));
+
+  },
+
+  joinEvent(user_id, event_id, bar_id) {
+    return db.query(` 
+    INSERT INTO "event_attendees"
+    (user_id, event_id, bar_id)
+    VALUES ($1, $2, $3)
+    RETURNING *;`, [user_id, event_id, bar_id]
+    )
+      .then(({ rows: event }) => event)
+      .catch(error => console.log(error));
+
+  },
+
   createUserEvent(templateVars) {
     return db.query(`
     INSERT INTO "events"
@@ -174,12 +204,13 @@ module.exports = db => ({
     WHERE users.email = $1
     `, [user_email]
     )
-    .then(({ rows: email }) => {
-      if (email.length !== 0){
-        return email[0].email
-      }
-    else return 0})
-    .catch(error => console.log(error));
+      .then(({ rows: email }) => {
+        if (email.length !== 0) {
+          return email[0].email
+        }
+        else return 0
+      })
+      .catch(error => console.log(error));
   },
 
   createUser(templateVars) {
@@ -194,8 +225,27 @@ module.exports = db => ({
       templateVars.email,
       templateVars.avatar]
     )
-    .then(({ rows: user }) => user)
-    .catch(error => console.log(error));
-  }
+      .then(({ rows: user }) => user)
+      .catch(error => console.log(error));
+  },
+
+
+  getAttendingEventsByUserId(user_id) {
+    return db.query(
+      `SELECT events.id AS event_id, events.user_id AS user_id, events.name AS
+      event_name, events.date AS event_date, events.start_time AS event_start_time,
+      events.end_time AS event_end_time, events.tag_line AS event_tag_line,
+      users.first_name AS host_name, users.email AS email,
+      users.avatar AS avatar,
+      count(event_attendees.id) AS attendees_count
+      FROM events
+      JOIN users ON users.id = events.user_id
+      JOIN event_attendees ON events.user_id = event_attendees.user_id
+      WHERE event_attendees.user_id = $1
+      GROUP BY events.id, users.first_name, users.email, users.avatar;`, [user_id]
+    )
+      .then(({ rows: events }) => events)
+      .catch(error => console.log(error));
+  },
 
 })
