@@ -6,7 +6,7 @@ VALUES ('Kat', 'Connolly', 'k.connolly@nomail.com', '../../public/kc.jpeg', 'Fun
 ('Khurram', 'Virani', 'k.virani@nomail.com', '', 'Professional Developer, Entrepreneur and Top Notch Voice Actor'),
 ('Casey', 'Sokach', 'c.sokach@nomail.com', '', 'Jr. Full Stack Developer'),
 ('Devon', 'Blake', 'd.blake@nomail.com', '', 'Full Stack Developer'),
-('Ahmed', 'Murad', 'a.murad@nomail.com', '', 'Full Stack Developer'),
+('Ahmed', 'Murad', 'a.murad@nomail.com', '../../public/Ahmed.jpg', 'Full Stack Developer'),
 ('Lucas', 'Wilson', 'l.wilson@nomail.com', '', 'Full Stack Developer'),
 ('Amanda', 'Shalansky', 'a.shalansky@nomail.com', '', 'Full Stack Developer'),
 ('Russel', 'McWhae', 'r.mcwhae@nomail.com', '', 'Full Stack Developer'),
