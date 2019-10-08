@@ -2,9 +2,23 @@ const passport = require('passport');
 const CLIENTID = process.env.CLIENTID
 const CLIENTSECRET = process.env.CLIENTSECRET
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+const ENV = process.env.NODE_ENV || 'development'
 
 module.exports = () => {
 // Allowing passport to serialize and deserialize users into sessions
+
+
+const forntEndURL = (arg) => {
+  let url
+  if (arg === "development") {
+    url = 'http://localhost:8000'
+  }
+  else {
+    url = 'https://together-lhl-gui.netlify.com'
+  }
+  return url
+}
+
 passport.serializeUser((user, cb) => cb(null, user))
 passport.deserializeUser((obj, cb) => cb(null, obj))
 passport.use(new LinkedInStrategy({

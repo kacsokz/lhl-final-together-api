@@ -6,16 +6,20 @@ module.exports = (query, updateUsers) => {
       .then(users => res.json(users))
   });
 
-  router.post("/users/:id/tagline", (req, res) => {
+  router.put("/users/:id", (req, res) => {
     const user_id = req.params.id;
-    query.addTagLine(req.body.tag_line, user_id)
+    const email = req.body.email
+    const tagLine = req.body.tagLine
+    query.updateUserInfo(user_id, email, tagLine)
       .then(user => res.json(user))
       .catch(error => console.log(error));
   });
 
-  router.post("/users/:id/email", (req, res) => {
+  router.put("/users/join/:id", (req, res) => {
     const user_id = req.params.id;
-    query.updateEmail(req.body.email, user_id)
+    const event_id = req.body.event_id
+    const bar_id = req.body.bar_id
+    query.joinEvent(user_id, event_id, bar_id)
       .then(user => res.json(user))
       .catch(error => console.log(error));
   });
@@ -34,7 +38,7 @@ module.exports = (query, updateUsers) => {
       .catch(error => console.log(error));
   });
 
-  router.post("/users/event/:id", (req, res) => {
+  router.delete("/users/event/:id", (req, res) => {
     const user_id = req.params.id;
     query.deleteUserEvent(user_id)
       .then(event => res.json(event))
