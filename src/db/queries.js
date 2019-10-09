@@ -193,6 +193,7 @@ module.exports = db => ({
       templateVars.event_end_time,
       templateVars.event_tag_line]
     )
+    .then(console.log(templateVars))
       .then(({ rows: event }) => event)
       .catch(error => console.log(error));
   },
