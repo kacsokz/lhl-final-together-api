@@ -1,18 +1,18 @@
 INSERT INTO users (first_name, last_name, email, avatar, tag_line)
-VALUES ('Kat', 'Connolly', 'k.connolly@nomail.com', '../../public/kc.jpeg', 'Fun & Outgoing Software Engineer'),
-('Tony', 'Grimes', 't.grimes@nomail.com', '../../public/Tony.jpg', 'Mentor & Community Leader'),
-('Nima', 'Boscarino', 'n.boscarino@nomail.com', '../../public/Nima.jpg', 'Stay yeezy'),
-('Hafiz', 'Suara', 'h.suara@nomail.com', '../../public/Hafiz.jpg', 'Developer, Mentor and Friend'),
-('Khurram', 'Virani', 'k.virani@nomail.com', '../../public/Khurram.jpg', 'Professional Developer, Entrepreneur and Top Notch Voice Actor'),
-('Casey', 'Sokach', 'caseysokach@gmail.com', '../../public/Casey.jpg', 'Jr. Full Stack Developer'),
+VALUES ('Kat', 'Connolly', 'k.connolly@nomail.com', 'https://media.licdn.com/dms/image/C5603AQFUiMn0YgEGvQ/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=06_76dpJ60WOM3UZtd1E3BU4GFo_tbCPBJZ4dWCpRnQ', 'Fun & Outgoing Software Engineer'),
+('Tony', 'Grimes', 't.grimes@nomail.com', 'https://media.licdn.com/dms/image/C5603AQHNzWe9UGqe7A/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=Dtzt6UC18tTVw8LK-H7moRFlQTn2mK50kIkr-u_c4fo', 'Mentor & Community Leader'),
+('Nima', 'Boscarino', 'n.boscarino@nomail.com', 'https://media.licdn.com/dms/image/C5603AQGvSXr1afvHXw/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=O_iBJVGsWUYS_hwKFKIPS8DDoHm71ZOTEWLqotRdHZ4', 'Stay yeezy'),
+('Hafiz', 'Suara', 'h.suara@nomail.com', 'https://media.licdn.com/dms/image/C5603AQGtBG7dCdpbGA/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=eQ5_TEUntcsy0g74cpKPHdMor8JnDpKsUAKfS38Z3h8', 'Developer, Mentor and Friend'),
+('Khurram', 'Virani', 'k.virani@nomail.com', 'https://media.licdn.com/dms/image/C5603AQGBG55ORV0srA/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=fM2DnX_V4SXmv-bqM5aaThxoTfEC7Amr5xFzvWJOGdE', 'Professional Developer, Entrepreneur and Top Notch Voice Actor'),
+('Casey', 'Sokach', 'caseysokach@gmail.com', 'https://media.licdn.com/dms/image/C5603AQF3iiVmpnP7eA/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=lzsQeTb54LcY2SUT7pUZTL1XwUaHi8g-5h8b1M5d-mA', 'Jr. Full Stack Developer'),
 ('Devon', 'Blake', 'd.blake@nomail.com', '', 'Full Stack Developer'),
-('Ahmed', 'Murad', 'a.murad@nomail.com', '../../public/Ahmed.jpg', 'Full Stack Developer'),
-('Lucas', 'Wilson', 'l.wilson@nomail.com', '', 'Full Stack Developer'),
-('Amanda', 'Shalansky', 'a.shalansky@nomail.com', '', 'Full Stack Developer'),
-('Russel', 'McWhae', 'r.mcwhae@nomail.com', '', 'Full Stack Developer'),
-('Michael', 'Chui', 'm.chui@nomail.com', '', 'Full Stack Developer'),
-('Andrew', 'Kim', 'a.kim@nomail.com', '', 'Full Stack Developer'),
-('Scott', 'Roberts', 's.roberts@nomail.com', '', 'Full Stack Developer');
+('Ahmed', 'Murad', 'a.murad@nomail.com', 'https://media.licdn.com/dms/image/C4E03AQGW-f3Zqoe6ZQ/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=s9M6IdsddDrBMnHxG5daVyc1mzXTfeSJdLyyEKLzxrI', 'Full Stack Developer'),
+('Lucas', 'Wilson', 'l.wilson@nomail.com', 'https://media.licdn.com/dms/image/C5603AQFuh_YYqEVumA/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=KIsNHU3iwJX-kNYJq_Z2_lm3RJEgraFP36Kh3Eacj1E', 'Full Stack Developer'),
+('Amanda', 'Shalansky', 'a.shalansky@nomail.com', 'https://media.licdn.com/dms/image/C5603AQHw0zdqzKjhLQ/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=QgSuS_A9SW-6Qp_OqKMHcCqnIdeZQ8FJcCpxz-dmV-8', 'Full Stack Developer'),
+('Russell', 'McWhae', 'r.mcwhae@nomail.com', 'https://media.licdn.com/dms/image/C5603AQE5OHt-L-svHw/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=tDCPgoYZrGXTQdIlsFoyzmGMwG0c-r5ovq2K7PSSpYQ', 'Full Stack Developer'),
+('Michael', 'Chui', 'm.chui@nomail.com', 'https://media.licdn.com/dms/image/C5603AQFudKQGHBiY-w/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=DlvyUvt7ulKHK9GqayEQ_NyCsIyQatR2ieVYgw549ws', 'Full Stack Developer'),
+('Andrew', 'Kim', 'a.kim@nomail.com', 'https://media.licdn.com/dms/image/C5603AQGlVefqKbIc7w/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=2gqc3AVeuHQB7pe8MwOmKVsXXJiMS3wB_TAzXww7sl8', 'Full Stack Developer'),
+('Scott', 'Roberts', 's.roberts@nomail.com', 'https://media.licdn.com/dms/image/C5603AQGlBZ5s4UKwlw/profile-displayphoto-shrink_200_200/0?e=1576108800&v=beta&t=9y4fHx7pjKwFoCv14O9sT-feZXTd4c4H2ZTAabHTzeM', 'Full Stack Developer');
 
 INSERT INTO bars (name, latitude, longitude, address, start_time, end_time)
 VALUES ('The Last Best Brewing Company', -114.074559, 51.042613, '607 11 Ave SW, Calgary, AB T2R 0E1', '15:30', '16:30'),
