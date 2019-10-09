@@ -39,24 +39,25 @@ module.exports = (query, updateUsers) => {
   });
 
   router.delete("/users/event/:id", (req, res) => {
-    const user_id = req.params.id;
-    query.deleteUserEvent(user_id)
+    const event_id = req.params.id;
+    query.deleteUserEvent(event_id)
       .then(event => res.json(event))
       .catch(error => console.log(error));
   });
 
-  router.post("/users/event/new/:id", (req, res) => {
+  router.put("/users/event/new/:id", (req, res) => {
+    // id, date, start, end, bar_id, name, tag
 
     const templateVars = {
-      user_id: req.params.id,
+      user_id: req.body.id,
       bar_id: req.body.bar_id,
-      event_name: req.body.event_name,
-      event_date: req.body.event_date,
-      event_start_time: req.body.event_start_time,
-      event_end_time: req.body.event_end_time,
-      event_tag_line: req.body.event_tag_line
+      event_name: req.body.name,
+      event_date: req.body.date,
+      event_start_time: req.body.start,
+      event_end_time: req.body.end,
+      event_tag_line: req.body.tag
     };
-    
+
     query.createUserEvent(templateVars)
       .then(event => res.json(event))
       .catch(error => console.log(error));
