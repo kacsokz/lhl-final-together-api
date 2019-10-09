@@ -84,13 +84,20 @@ module.exports = db => ({
           count(event_attendees.event_id) AS attendees_count
       FROM event_attendees, users, events
       WHERE users.id = event_attendees.user_id
-         AND events.id = event_attendees.event_id
          AND events.id = $1
       GROUP BY event_attendees.event_id, event_attendees.bar_id, events.name, events.date, events.start_time, events.end_time, events.tag_line, events.id
       `, [id])
       .then(({ rows }) => rows[0])
       .catch(error => console.log(error));
   },
+
+  // getEventById(id) {
+  //   return db.query(
+  //     `SELECT * from events where id=$1;
+  //     `, [id])
+  //     .then(({ rows }) => rows[0])
+  //     .catch(error => console.log(error));
+  // },
 
   getMapData() {
     return db.query(
@@ -179,6 +186,7 @@ module.exports = db => ({
   },
 
   createUserEvent(templateVars) {
+    // console.log(templateVars.user_id)
     return db.query(`
     INSERT INTO "events"
     (user_id, bar_id, name, date, start_time, end_time, tag_line)
@@ -193,7 +201,7 @@ module.exports = db => ({
       templateVars.event_end_time,
       templateVars.event_tag_line]
     )
-    .then(console.log(templateVars))
+    
       .then(({ rows: event }) => event)
       .catch(error => console.log(error));
   },
