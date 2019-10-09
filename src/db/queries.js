@@ -252,14 +252,15 @@ module.exports = db => ({
       event_name, events.date AS event_date, events.start_time AS event_start_time,
       events.end_time AS event_end_time, events.tag_line AS event_tag_line,
       users.first_name AS host_name, users.email AS email,
-      users.avatar AS avatar,
+      users.avatar AS avatar, bars.name AS bar_name,
       count(event_attendees.id) AS attendees_count
       FROM events
       JOIN users ON users.id = events.user_id
+      JOIN bars ON bars.id = events.bar_id
       JOIN event_attendees ON events.user_id = event_attendees.user_id
       WHERE event_attendees.user_id = $1
       AND event_attendees.user_id = $1
-      GROUP BY events.id, users.first_name, users.email, users.avatar;`, [user_id]
+      GROUP BY events.id, users.first_name, users.email, users.avatar, bars.name;`, [user_id]
     )
       .then(({ rows: events }) => events)
       .catch(error => console.log(error));
