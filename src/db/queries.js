@@ -56,7 +56,7 @@ module.exports = db => ({
       events.end_time AS event_end_time, events.tag_line AS event_tag_line,
       users.first_name AS host_name, users.email AS email,
       users.avatar AS avatar,
-      count(event_attendees.id) AS attendees_count
+      count(event_attendees.*) AS attendees_count
       FROM events
       JOIN users ON users.id = events.user_id
       JOIN event_attendees ON events.user_id = event_attendees.user_id
@@ -81,7 +81,7 @@ module.exports = db => ({
           events.name AS event_name,
           events.date AS event_date, events.start_time AS event_start_time,
           events.end_time AS event_end_time, events.tag_line AS event_tag_line,
-          count(event_attendees.*) AS attendees_count
+          count(event_attendees.event_id) AS attendees_count
       FROM event_attendees, users, events
       WHERE users.id = event_attendees.user_id
          AND events.id = event_attendees.event_id
