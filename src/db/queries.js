@@ -43,7 +43,13 @@ module.exports = db => ({
 
   getEvents() {
     return db.query(
-      `SELECT * FROM events`
+      `SELECT events.id AS event_id, events.name AS event_name,
+      events.date AS event_date, events.start_time AS event_start_time,
+      events.end_time AS event_end_time, events.tag_line AS event_tag_line,
+      bars.name AS bar_name
+      FROM events
+      JOIN bars ON bars.id = events.bar_id
+      LIMIT 5;`
     )
       .then(({ rows: events }) => events)
       .catch(error => console.log(error));
@@ -201,7 +207,7 @@ module.exports = db => ({
       templateVars.event_end_time,
       templateVars.event_tag_line]
     )
-    
+
       .then(({ rows: event }) => event)
       .catch(error => console.log(error));
   },
@@ -240,6 +246,7 @@ module.exports = db => ({
 
 
   getAttendingEventsByUserId(user_id) {
+    // console.log(user_id)
     return db.query(
       `SELECT events.id AS event_id, events.user_id AS user_id, events.name AS
       event_name, events.date AS event_date, events.start_time AS event_start_time,
@@ -251,6 +258,7 @@ module.exports = db => ({
       JOIN users ON users.id = events.user_id
       JOIN event_attendees ON events.user_id = event_attendees.user_id
       WHERE event_attendees.user_id = $1
+      AND event_attendees.user_id = $1
       GROUP BY events.id, users.first_name, users.email, users.avatar;`, [user_id]
     )
       .then(({ rows: events }) => events)
