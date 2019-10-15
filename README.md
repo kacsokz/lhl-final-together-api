@@ -94,3 +94,17 @@ Body:
 ```
 
 `DELETE /api/events/:id`
+
+## Authors
+
+- Ahmed Murad
+- Casey Sokach
+- Devon Blake
+
+
+
+## Getting Started
+
+Install all dependencies (using the npm install command).
+Create tunnel as linkedin api will not work on local host.
+Run the server using the node run local command.
