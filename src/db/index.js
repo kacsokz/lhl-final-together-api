@@ -1,6 +1,6 @@
 const pg = require("pg");
 
-
+// connect to local or production database 
 let dbParams = "";
 if (process.env.NODE_ENV === "production") {
   dbParams = process.env.DATABASE_URL;

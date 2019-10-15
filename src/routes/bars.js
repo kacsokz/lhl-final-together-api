@@ -1,11 +1,11 @@
 const router = require("express").Router();
 
 module.exports = (query) => {
+  // get all bars locations 
   router.get("/bars", (req, res) => {
     query.getBars()
       .then(bars => res.json(bars))
   });
-
 
   router.get("/bars/:id", (req, res) => {
     const id = req.params.id;

@@ -38,6 +38,7 @@ module.exports = function application(
   app.use(helmet());
   app.use(bodyparser.json());
 
+  // user all routers
   app.use("/api", users(query));
   app.use("/api", events(query));
   app.use("/api", bars(query));
@@ -46,7 +47,7 @@ module.exports = function application(
   
 
   
-
+// get request to drop/ create tables and seed local database for testing
   if (ENV === "development" || ENV === "test") {
     Promise.all([
       read(path.resolve(__dirname, `db/schema/create.sql`)),

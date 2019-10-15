@@ -97,14 +97,6 @@ module.exports = db => ({
       .catch(error => console.log(error));
   },
 
-  // getEventById(id) {
-  //   return db.query(
-  //     `SELECT * from events where id=$1;
-  //     `, [id])
-  //     .then(({ rows }) => rows[0])
-  //     .catch(error => console.log(error));
-  // },
-
   getMapData() {
     return db.query(
       `SELECT id, longitude, latitude FROM bars`
@@ -192,7 +184,6 @@ module.exports = db => ({
   },
 
   createUserEvent(templateVars) {
-    // console.log(templateVars.user_id)
     return db.query(`
     INSERT INTO "events"
     (user_id, bar_id, name, date, start_time, end_time, tag_line)
@@ -246,7 +237,6 @@ module.exports = db => ({
 
 
   getAttendingEventsByUserId(user_id) {
-    // console.log(user_id)
     return db.query(
       `SELECT events.id AS event_id, events.user_id AS user_id, events.name AS
       event_name, events.date AS event_date, events.start_time AS event_start_time,

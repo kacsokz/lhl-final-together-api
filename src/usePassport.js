@@ -26,11 +26,10 @@ passport.use(new LinkedInStrategy({
   clientSecret: CLIENTSECRET,
   callbackURL: "https://together-lhl-api.herokuapp.com/auth/linkedin/callback", //wont work on localhost
   scope: ['r_emailaddress', 'r_liteprofile'],
-  // state: true
 }, function(accessToken, refreshToken, profile, done) {
-    // To keep the example simple, the user's LinkedIn profile is returned to
-    // represent the logged-in user. In a typical application, you would want
-    // to associate the LinkedIn account with a user record in your database,
+    // the user's LinkedIn profile is returned to
+    // represent the logged-in user and
+    // associate the LinkedIn account with a user record in your database,
     // and return that user instead.
     return done(null, profile);
 }));

@@ -72,7 +72,6 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin'),
         else {
           query.getUserIdByEmail(req.user.emails[0].value)
             .then(user_id => {
-              // console.log('login', url)
               res.redirect(url + '?user_id=' + user_id[0].id)
             })
             .catch(error => console.log(error));

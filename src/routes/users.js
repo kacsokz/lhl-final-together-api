@@ -46,8 +46,7 @@ module.exports = (query, updateUsers) => {
   });
 
   router.put("/users/event/new/:id", (req, res) => {
-    // id, date, start, end, bar_id, name, tag
-
+    //creating new event for the signed in user
     const templateVars = {
       user_id: req.body.id,
       bar_id: req.body.bar_id,
@@ -57,12 +56,10 @@ module.exports = (query, updateUsers) => {
       event_end_time: req.body.end,
       event_tag_line: req.body.tag
     };
-
     query.createUserEvent(templateVars)
       .then(event => res.json(event))
       .catch(error => console.log(error));
   });
-
 
   return router
 }
